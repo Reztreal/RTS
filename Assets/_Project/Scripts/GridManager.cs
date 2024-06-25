@@ -50,6 +50,9 @@ public class GridManager : MonoBehaviour
                         UnityEditor.Handles.color = Color.red;
                         UnityEditor.Handles.ArrowHandleCap(0, cell.worldPosition, Quaternion.LookRotation(direction), cellRadius, EventType.Repaint);
                     }
+
+                    // Draw the best cost of the cell as a label
+                    UnityEditor.Handles.Label(cell.worldPosition, cell.bestCost.ToString());
                 }
             }
         }

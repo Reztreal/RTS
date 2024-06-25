@@ -25,17 +25,27 @@ public class Unit : MonoBehaviour
 
     private IEnumerator MoveToDestination()
     {
-        Cell currentCell = GridManager.Instance.flowField.GetCellAtWorldPosition(transform.position);
-        Cell destinationCell = GridManager.Instance.flowField.GetCellAtWorldPosition(destination);
-        
         while (Vector3.Distance(transform.position, destination) > stoppingDistance)
         {
-            currentCell = GridManager.Instance.flowField.GetCellAtWorldPosition(transform.position);
+            Cell currentCell = GridManager.Instance.flowField.GetCellAtWorldPosition(transform.position);
+            if (currentCell == null || currentCell.bestDirection == GridDirection.None)
+            {
+                yield break; // No valid path found
+            }
+
             Vector2Int direction = GridDirection.GetDirectionFromV2I(currentCell.bestDirection);
+            Vector3 moveDirection = new Vector3(direction.x, 0, direction.y).normalized;
+
+            // Apply the movement direction
+            Vector3 targetPosition = transform.position + moveDirection * (speed * Time.deltaTime);
             
-            Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
-            rb.velocity = moveDirection * speed;
-            
+            // Adjust target position to follow the terrain height
+            targetPosition.y = GridManager.Instance.flowField.terrain.SampleHeight(targetPosition) - 10f + 1f;
+
+            // Move towards the target position
+            rb.MovePosition(targetPosition);
+
+            // Wait for the next frame
             yield return null;
         }
     }

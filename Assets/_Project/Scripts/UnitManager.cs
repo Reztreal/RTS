@@ -11,7 +11,9 @@ public class UnitManager : MonoBehaviour
     public LayerMask unitLayerMask;
     public LayerMask groundLayerMask;
     
-    public FlowField flowField;
+    // remove
+    public GameObject particleEffect;
+    
 
     private void Awake()
     {
@@ -45,11 +47,16 @@ public class UnitManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
             {
+                // create a particle effect at the mouse position on the ground
+                Instantiate(particleEffect, hit.point, Quaternion.identity);
+                
                 Cell destinationCell = GridManager.Instance.flowField.GetCellAtWorldPosition(hit.point);
                 
                 GridManager.Instance.flowField.Reset();
+                GridManager.Instance.flowField.CreateCostField();
                 GridManager.Instance.flowField.CreateIntegrationField(destinationCell);
                 GridManager.Instance.flowField.CreateFlowField();
+
                 MoveUnits(hit.point);
             }
         }

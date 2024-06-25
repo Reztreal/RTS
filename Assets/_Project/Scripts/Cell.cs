@@ -9,31 +9,30 @@ public class Cell
     
     public GridDirection bestDirection;
     
-    public byte cost;
-    public ushort bestCost;
-    
+    public float cost;
+    public float bestCost;
     public float height => worldPosition.y;
     
     public Cell(Vector3 worldPosition, Vector2Int gridPosition)
     {
         this.worldPosition = worldPosition;
         this.gridPosition = gridPosition;
-        
+
         cost = 1;
-        bestCost = ushort.MaxValue;
+        bestCost = float.MaxValue;
         bestDirection = GridDirection.None;
     }
     
-    public void IncreaseCost(byte amount)
+    public void IncreaseCost(float amount)
     {
-        if (cost == byte.MaxValue)
+        if (cost == float.MaxValue)
         {
             return;
         }
         
-        if (cost + amount >= byte.MaxValue)
+        if (cost + amount >= float.MaxValue)
         {
-            cost = byte.MaxValue;
+            cost = float.MaxValue;
         }
         else
         {
