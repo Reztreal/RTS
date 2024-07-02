@@ -64,6 +64,9 @@ sysinfo.txt
 # Terrain data
 /Assets/TerrainData/
 
+#Third Party Assets
+/Assets/ThirdParty/
+
 # Crashlytics generated file
 crashlytics-build.properties
 
