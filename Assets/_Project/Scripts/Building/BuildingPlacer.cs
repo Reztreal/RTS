@@ -2,18 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingPlacer : MonoBehaviour
 {
     [SerializeField] private BuildingDatabaseSO _buildingDatabase;
     private Building _buildingToPlace = null;
     private BuildingData _buildingData = null;
-
-    private void Start()
-    {
-        _buildingData = _buildingDatabase.buildingDataList[0];
-        PrepareBuildingToPlace();
-    }
 
     private void Update()
     {
@@ -32,20 +27,26 @@ public class BuildingPlacer : MonoBehaviour
                     _buildingToPlace.SetPosition(hit.point);
                 }
 
-                if (Input.GetMouseButtonUp(0) && _buildingToPlace.HasValidPlacement)
+                if (Input.GetMouseButtonUp(0) && _buildingToPlace.HasValidPlacement && !EventSystem.current.IsPointerOverGameObject())
                 {
                     PlaceBuilding();
                 }
             }
         }
     }
+    
+    public void SelectBuildingToPlace(int index)
+    {
+        PrepareBuildingToPlace(index);
+    }
 
-    public void PrepareBuildingToPlace()
+    public void PrepareBuildingToPlace(int index)
     {
         if (_buildingToPlace != null && !_buildingToPlace.IsPlaced)
         {
             Destroy(_buildingToPlace.Transform.gameObject);
         }
+        _buildingData = Globals.BUILDING_DATA.buildingDataList[index];
         
         Building building = new Building(_buildingData);
         building.Transform.GetComponent<BuildingCollision>().Initialize(building);

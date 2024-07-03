@@ -6,4 +6,9 @@ using UnityEngine;
 public class BuildingDatabaseSO : ScriptableObject
 {
     public List<BuildingData> buildingDataList;
+    
+    public BuildingData GetBuildingData(int index)
+    {
+        return buildingDataList[index];
+    }
 }
