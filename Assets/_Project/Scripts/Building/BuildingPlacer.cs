@@ -21,7 +21,7 @@ public class BuildingPlacer : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                _buildingToPlace = null;
+                CancelBuildingPlacement();
             }
             else
             {
@@ -31,14 +31,36 @@ public class BuildingPlacer : MonoBehaviour
                 {
                     _buildingToPlace.SetPosition(hit.point);
                 }
+
+                if (Input.GetMouseButtonUp(0) && _buildingToPlace.HasValidPlacement)
+                {
+                    PlaceBuilding();
+                }
             }
         }
     }
 
     public void PrepareBuildingToPlace()
     {
+        if (_buildingToPlace != null && !_buildingToPlace.IsPlaced)
+        {
+            Destroy(_buildingToPlace.Transform.gameObject);
+        }
+        
         Building building = new Building(_buildingData);
         building.Transform.GetComponent<BuildingCollision>().Initialize(building);
         _buildingToPlace = building;
+    }
+    
+    public void CancelBuildingPlacement()
+    {
+        Destroy(_buildingToPlace.Transform.gameObject);
+        _buildingToPlace = null;
+    }
+
+    public void PlaceBuilding()
+    {
+        _buildingToPlace.Place();
+        _buildingToPlace = null;
     }
 }

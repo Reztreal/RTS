@@ -38,6 +38,13 @@ public class Building
     {
         _transform.position = position;
     }
+
+    public void Place()
+    {
+        _state = BuildingState.PLACED;
+        _transform.GetComponent<BoxCollider>().isTrigger = false;
+        SetMaterials();
+    }
     
     public void SetMaterials() {SetMaterials(_state);}
 
@@ -74,6 +81,9 @@ public class Building
     }
     
     public bool IsPlaced { get { return _state == BuildingState.PLACED; } }
+    public bool HasValidPlacement { get { return _state == BuildingState.VALID; } }
+    public BuildingState State { get { return _state; } }
+    public void SetState(BuildingState state) { _state = state; }
     public Transform Transform { get { return _transform; } }
     
 }
