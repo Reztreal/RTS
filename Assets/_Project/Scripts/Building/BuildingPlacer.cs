@@ -63,5 +63,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         _buildingToPlace.Place();
         _buildingToPlace = null;
+
+        EventManager.TriggerEvent("UpdateResourceUI");
     }
 }

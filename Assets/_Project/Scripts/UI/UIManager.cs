@@ -16,6 +16,34 @@ public class UIManager : MonoBehaviour
     
     private BuildingPlacer _buildingPlacer;
 
+    private void OnEnable()
+    {
+        EventManager.AddListener("UpdateResourceUI", OnUpdateResourceUI);
+    }
+    
+    private void OnDisable()
+    {
+        EventManager.RemoveListener("UpdateResourceUI", OnUpdateResourceUI);
+    }
+
+    private void OnUpdateResourceUI()
+    {
+        UpdateResources();
+    }
+
+    private void UpdateResources()
+    {
+        foreach (GameResource resource in Globals.RESOURCE_DATA.resourceTypeList)
+        {
+            SetResourceText(resource.resourceType.resourceName, resource.amount);
+        }
+    }
+    
+    private void SetResourceText(string resourceName, int amount)
+    {
+        resourceMenu.Find(resourceName).Find("ResourceAmount").GetComponent<TMPro.TextMeshProUGUI>().text = amount.ToString();
+    }
+
     private void Awake()
     {
         _buildingPlacer = GetComponent<BuildingPlacer>();
