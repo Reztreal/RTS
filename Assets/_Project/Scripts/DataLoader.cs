@@ -6,8 +6,8 @@ public static class DataLoader
 {
     public static void LoadBuildingData()
     {
-        Globals.BUILDING_DATA = Resources.Load<BuildingDatabaseSO>("ScriptableObjects/BuildingDatabase");
-        Globals.RESOURCE_DATA = Resources.Load<GameResourceDatabaseSO>("ScriptableObjects/GameResourceDatabase");
+        Globals.BUILDING_DATA = Resources.Load<BuildingDatabaseSO>("ScriptableObjects/Buildings/BuildingDatabase");
+        Globals.RESOURCE_DATA = Resources.Load<GameResourceDatabaseSO>("ScriptableObjects/GameResources/GameResourceDatabase");
         
     }
 }

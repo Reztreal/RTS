@@ -42,7 +42,7 @@ public class BuildingCollision : MonoBehaviour
             _building.SetMaterials(BuildingState.INVALID);
             _building.SetState(BuildingState.INVALID);
         }
-        else
+        else if (_building.CanAffordBuilding())
         {
             _building.SetMaterials(BuildingState.VALID);
             _building.SetState(BuildingState.VALID);

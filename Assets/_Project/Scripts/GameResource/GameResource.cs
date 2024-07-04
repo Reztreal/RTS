@@ -14,4 +14,17 @@ public class GameResource
         this.resourceType = resourceType;
         this.amount = amount;
     }
+
+    public void UpdateAmount(int amount)
+    {
+        int newAmount = this.amount + amount;
+        if (newAmount < 0)
+        {
+            this.amount = 0;
+        }
+        else
+        {
+            this.amount = newAmount;
+        }
+    }
 }

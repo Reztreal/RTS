@@ -26,12 +26,19 @@ public class Building
         GameObject g = GameObject.Instantiate(_buildingData.buildingPrefab) as GameObject;
         _transform = g.transform;
         
-        _state = BuildingState.VALID;
         foreach (Material m in g.GetComponentInChildren<Renderer>().materials)
         {
             _materials.Add(m);
         }
-        SetMaterials();
+
+        if (CanAffordBuilding())
+        {
+            SetMaterials(BuildingState.VALID);
+        }
+        else
+        {
+            SetMaterials(BuildingState.INVALID);
+        }
     }
     
     public void SetPosition(Vector3 position)
@@ -44,6 +51,11 @@ public class Building
         _state = BuildingState.PLACED;
         _transform.GetComponent<BoxCollider>().isTrigger = false;
         SetMaterials();
+        
+        foreach (ResourceValue resourceValue in _buildingData.buildingCost)
+        {
+            Globals.RESOURCE_DATA.GetResource(resourceValue.resourceType.resourceName).amount -= resourceValue.amount;
+        }
     }
     
     public void SetMaterials() {SetMaterials(_state);}
@@ -82,6 +94,7 @@ public class Building
     
     public bool IsPlaced { get { return _state == BuildingState.PLACED; } }
     public bool HasValidPlacement { get { return _state == BuildingState.VALID; } }
+    public bool CanAffordBuilding() { return _buildingData.CanAffordBuilding(); }
     public BuildingState State { get { return _state; } }
     public void SetState(BuildingState state) { _state = state; }
     public Transform Transform { get { return _transform; } }
