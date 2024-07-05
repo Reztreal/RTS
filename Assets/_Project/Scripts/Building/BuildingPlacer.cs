@@ -27,7 +27,7 @@ public class BuildingPlacer : MonoBehaviour
                     _buildingToPlace.SetPosition(hit.point);
                 }
 
-                if (Input.GetMouseButtonUp(0) && _buildingToPlace.HasValidPlacement && !EventSystem.current.IsPointerOverGameObject() && _buildingData.CanAffordBuilding())
+                if (Input.GetMouseButtonDown(0) && _buildingToPlace.HasValidPlacement && !EventSystem.current.IsPointerOverGameObject() && _buildingData.CanAffordBuilding())
                 {
                     PlaceBuilding();
                 }
@@ -49,7 +49,7 @@ public class BuildingPlacer : MonoBehaviour
         _buildingData = Globals.BUILDING_DATA.buildingDataList[index];
         
         Building building = new Building(_buildingData);
-        building.Transform.GetComponent<BuildingCollision>().Initialize(building);
+        building.Transform.GetComponent<BuildingManager>().Initialize(building);
         _buildingToPlace = building;
     }
     

@@ -1,72 +1,88 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
-    public static UnitManager Instance { get; private set; }
+    public GameObject selectionIndicator;
+    public GameObject healthBar;
     
-    public List<Unit> units = new List<Unit>();
-    public LayerMask unitLayerMask;
-    public LayerMask groundLayerMask;
-    
-    // remove
-    public GameObject particleEffect;
+    private Renderer _healthBarRenderer;
+    private MaterialPropertyBlock _healthBarMaterialPropertyBlock;
+    private int _healthBarPropertyID;
     
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        healthBar.SetActive(false);
+        _healthBarRenderer = healthBar.GetComponent<Renderer>();
+        _healthBarMaterialPropertyBlock = new MaterialPropertyBlock();
+        _healthBarPropertyID = Shader.PropertyToID("_Health");
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, unitLayerMask))
+            SetHealth(0.3f);
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (IsAlive())
+        {
+            Select(true);
+        }
+    }
+
+    public virtual bool IsAlive()
+    {
+        return true;
+    }
+    
+    
+    public void Select() {Select(false);}
+
+    public void Select(bool clearSelection)
+    {
+        if (Globals.SELECTED_UNITS.Contains(this)) return;
+
+        if (clearSelection)
+        {
+            List<UnitManager> selectedUnits = Globals.SELECTED_UNITS.ToList();
+            foreach (UnitManager unit in selectedUnits)
             {
-                Unit unit = hit.collider.GetComponent<Unit>();
-                if (unit != null)
-                {
-                    units.Add(unit);
-                }
+                unit.Deselect();
             }
         }
         
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
-            {
-                // create a particle effect at the mouse position on the ground
-                Instantiate(particleEffect, hit.point, Quaternion.identity);
-                
-                Cell destinationCell = GridManager.Instance.flowField.GetCellAtWorldPosition(hit.point);
-                
-                GridManager.Instance.flowField.Reset();
-                GridManager.Instance.flowField.CreateCostField();
-                GridManager.Instance.flowField.CreateIntegrationField(destinationCell);
-                GridManager.Instance.flowField.CreateFlowField();
+        Globals.SELECTED_UNITS.Add(this);
+        selectionIndicator.SetActive(true);
+        healthBar.SetActive(true);
+    }
 
-                MoveUnits(hit.point);
-            }
-        }
+    public void Deselect()
+    {
+        if (!Globals.SELECTED_UNITS.Contains(this)) return;
+        Globals.SELECTED_UNITS.Remove(this);
+        selectionIndicator.SetActive(false);
+        healthBar.SetActive(false);
+    }
+
+    public virtual void SetHealth(float health)
+    {
+        _healthBarRenderer.GetPropertyBlock(_healthBarMaterialPropertyBlock);
+        _healthBarMaterialPropertyBlock.SetFloat(_healthBarPropertyID, health);
+        _healthBarRenderer.SetPropertyBlock(_healthBarMaterialPropertyBlock);
     }
     
-    public void MoveUnits(Vector3 destination)
+    public virtual void RemoveHealth(float health)
     {
-        foreach (Unit unit in units)
-        {
-            unit.Move(destination);
-        }
+        _healthBarRenderer.GetPropertyBlock(_healthBarMaterialPropertyBlock);
+        _healthBarMaterialPropertyBlock.SetFloat(_healthBarPropertyID, _healthBarMaterialPropertyBlock.GetFloat(_healthBarPropertyID) - health);
+        _healthBarRenderer.SetPropertyBlock(_healthBarMaterialPropertyBlock);
     }
 }

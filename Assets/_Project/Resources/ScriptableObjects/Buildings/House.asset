@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: House
   m_EditorClassIdentifier: 
   buildingName: House
-  buildingPrefab: {fileID: 1723220402342290864, guid: e304aacaf3caea14db19bc0987a908ff,
+  buildingPrefab: {fileID: 2134524521000029446, guid: ccdcd6001d4a67d4297d63ea7dd2d019,
     type: 3}
   buildingCost:
-  - resourceType: {fileID: 11400000, guid: ed05f4369679ffb429a0c8d4f79ac977, type: 2}
+  - resourceType: {fileID: 11400000, guid: bad487a7d2947ce4bb5f018aa1f6aaa4, type: 2}
     amount: 100

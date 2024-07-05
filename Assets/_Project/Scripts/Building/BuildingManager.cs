@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingCollision : MonoBehaviour
+public class BuildingManager : UnitManager
 {
     private Building _building;
     private BoxCollider _boxCollider;
@@ -14,6 +14,11 @@ public class BuildingCollision : MonoBehaviour
     {
         _boxCollider = GetComponent<BoxCollider>();
         _building = building;
+    }
+    
+    public override bool IsAlive()
+    {
+        return _building.State == BuildingState.PLACED;
     }
 
     private void OnTriggerEnter(Collider other)
