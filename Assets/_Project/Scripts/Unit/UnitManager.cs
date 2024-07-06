@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
+    protected Unit _unit;
+    protected BoxCollider _boxCollider;
+    
     public GameObject selectionIndicator;
     public GameObject healthBar;
     
@@ -14,8 +17,13 @@ public class UnitManager : MonoBehaviour
     private Renderer _healthBarRenderer;
     private MaterialPropertyBlock _healthBarMaterialPropertyBlock;
     private int _healthBarPropertyID;
-    
 
+    public virtual void Initialize(Unit unit)
+    {
+        _unit = unit;
+        _boxCollider = GetComponent<BoxCollider>();
+    }
+    
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
@@ -29,16 +37,7 @@ public class UnitManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(transform.position);
         SetHealthBarPosition();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SetHealth(0.3f);
-        }
     }
 
     private void OnMouseDown()
@@ -71,6 +70,9 @@ public class UnitManager : MonoBehaviour
         }
         
         Globals.SELECTED_UNITS.Add(this);
+        
+        EventManager.TriggerEvent("SelectUnit", _unit);
+        
         selectionIndicator.SetActive(true);
         healthBar.SetActive(true);
     }
@@ -79,6 +81,9 @@ public class UnitManager : MonoBehaviour
     {
         if (!Globals.SELECTED_UNITS.Contains(this)) return;
         Globals.SELECTED_UNITS.Remove(this);
+        
+        EventManager.TriggerEvent("DeselectUnit");
+        
         selectionIndicator.SetActive(false);
         healthBar.SetActive(false);
     }

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     {
         DataLoader.LoadBuildingData();
         ResetResources();
-        SpawnTownCenters();
+        // SpawnTownCenters();
     }
     
     public void SpawnTownCenters()

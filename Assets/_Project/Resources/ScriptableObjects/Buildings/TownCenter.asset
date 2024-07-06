@@ -19,3 +19,5 @@ MonoBehaviour:
   unitCost:
   - resourceType: {fileID: 11400000, guid: bad487a7d2947ce4bb5f018aa1f6aaa4, type: 2}
     amount: 500
+  skills:
+  - {fileID: 11400000, guid: 471d72628a14d6948a212f8ab1e99970, type: 2}

@@ -6,16 +6,15 @@ using UnityEngine;
 public class BuildingManager : UnitManager
 {
     private Building _building;
-    private BoxCollider _boxCollider;
     
     private int _collisionCount = 0;
 
-    public void Initialize(Building building)
+    public override void Initialize(Unit unit)
     {
-        _boxCollider = GetComponent<BoxCollider>();
-        _building = building;
+        base.Initialize(unit);
+        _building = unit as Building;
     }
-    
+
     public override bool IsAlive()
     {
         return _building.State == BuildingState.PLACED;

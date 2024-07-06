@@ -9,6 +9,8 @@ public class UnitData : ScriptableObject
     public int maxHealth;
     
     public List<ResourceValue> unitCost;
+    public List<SkillData> skills = new List<SkillData>();
+    
     
     public bool CanAffordUnit()
     {

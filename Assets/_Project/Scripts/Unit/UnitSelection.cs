@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Diagnostics;
+using UnityEngine.EventSystems;
 
 public class UnitSelection : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class UnitSelection : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        
         if (Globals.SELECTED_UNITS.Count > 0)
         {
             if (Input.GetKeyDown(KeyCode.Escape))

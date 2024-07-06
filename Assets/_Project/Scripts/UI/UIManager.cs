@@ -11,18 +11,25 @@ public class UIManager : MonoBehaviour
     public Transform buildingMenu;
     public Transform buildingInfoPanel;
     private Transform buildingInfoPanelResources;
+
+    [Header("Building Info Panel UI")] 
+    public Transform buildingInfoPanelSkills;
+    public GameObject skillButtonPrefab;
     
     [Header("Resource UI")]
     public GameObject resourceUIPrefab;
     public Transform resourceMenu;
     
     private BuildingPlacer _buildingPlacer;
+    private Unit _selectedUnit;
 
     private void OnEnable()
     {
         EventManager.AddListener("UpdateResourceUI", OnUpdateResourceUI);
         EventManager.AddListener("HoverBuildingButton", OnHoverBuildingButton);
         EventManager.AddListener("UnhoverBuildingButton", OnUnhoverBuildingButton);
+        EventManager.AddListener("SelectUnit", OnSelectUnit);
+        EventManager.AddListener("DeselectUnit", OnDeselectUnit);
     }
     
     private void OnDisable()
@@ -30,6 +37,20 @@ public class UIManager : MonoBehaviour
         EventManager.RemoveListener("UpdateResourceUI", OnUpdateResourceUI);
         EventManager.RemoveListener("HoverBuildingButton", OnHoverBuildingButton);
         EventManager.RemoveListener("UnhoverBuildingButton", OnUnhoverBuildingButton);
+        EventManager.RemoveListener("SelectUnit", OnSelectUnit);
+        EventManager.RemoveListener("DeselectUnit", OnDeselectUnit);
+    }
+    
+    private void OnSelectUnit(object unit)
+    {
+        Unit _unit = unit as Unit;
+        buildingInfoPanelSkills.gameObject.SetActive(true);
+        SetSkillsPanel(_unit);
+    }
+    
+    private void OnDeselectUnit()
+    {
+        buildingInfoPanelSkills.gameObject.SetActive(false);
     }
     
     private void OnHoverBuildingButton(object data)
@@ -60,6 +81,34 @@ public class UIManager : MonoBehaviour
     private void SetResourceText(string resourceName, int amount)
     {
         resourceMenu.Find(resourceName).Find("ResourceAmount").GetComponent<TMPro.TextMeshProUGUI>().text = amount.ToString();
+    }
+    
+    private void SetSkillsPanel(Unit unit)
+    {
+        _selectedUnit = unit;
+        
+        foreach (Transform child in buildingInfoPanelSkills)
+        {
+            Destroy(child.gameObject);
+        }
+
+        if (unit.Skills.Count > 0)
+        {
+            GameObject gameObject; 
+            Transform transform;
+            Button button;
+
+            for (int i = 0; i < unit.Skills.Count; i++)
+            {
+                gameObject = GameObject.Instantiate(skillButtonPrefab, buildingInfoPanelSkills);
+                transform = gameObject.transform;
+                button = gameObject.GetComponent<Button>();
+                unit.Skills[i].SetButton(button);
+                button.image.sprite = unit.Skills[i].SkillData.skillIcon;
+                
+                AddUnitSkillButtonListener(button, i);
+            }
+        }
     }
 
     private void SetInfoPanel(BuildingData data)
@@ -131,5 +180,10 @@ public class UIManager : MonoBehaviour
     private void AddBuildingButtonListener(Button b, int i)
     {
         b.onClick.AddListener(() => _buildingPlacer.SelectBuildingToPlace(i));
+    }
+    
+    private void AddUnitSkillButtonListener(Button b, int i)
+    {
+        b.onClick.AddListener(() => _selectedUnit.TriggerSkill(i));
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "GameResourceDatabaseSO")]
+[CreateAssetMenu(fileName = "GameResourceDatabase", menuName = "ScriptableObjects/GameResource/GameResourceDatabase")]
 public class GameResourceDatabaseSO : ScriptableObject
 {
     
