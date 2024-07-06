@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Globals
 {
+    public static List<Transform> SPAWN_POINTS = new List<Transform>();
+    
     public static GameResourceDatabaseSO RESOURCE_DATA;
     public static BuildingDatabaseSO BUILDING_DATA;
     

@@ -9,6 +9,8 @@ public class UnitManager : MonoBehaviour
     public GameObject selectionIndicator;
     public GameObject healthBar;
     
+    public MeshRenderer meshRenderer;
+    
     private Renderer _healthBarRenderer;
     private MaterialPropertyBlock _healthBarMaterialPropertyBlock;
     private int _healthBarPropertyID;
@@ -16,10 +18,19 @@ public class UnitManager : MonoBehaviour
 
     private void Awake()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
+        
         healthBar.SetActive(false);
+        
         _healthBarRenderer = healthBar.GetComponent<Renderer>();
         _healthBarMaterialPropertyBlock = new MaterialPropertyBlock();
         _healthBarPropertyID = Shader.PropertyToID("_Health");
+    }
+
+    private void Start()
+    {
+        Debug.Log(transform.position);
+        SetHealthBarPosition();
     }
 
     private void Update()
@@ -70,6 +81,15 @@ public class UnitManager : MonoBehaviour
         Globals.SELECTED_UNITS.Remove(this);
         selectionIndicator.SetActive(false);
         healthBar.SetActive(false);
+    }
+
+    public void SetHealthBarPosition()
+    {
+        Vector3 pos = transform.position;
+
+        pos.y = 6;
+        
+        healthBar.transform.position = pos;
     }
 
     public virtual void SetHealth(float health)

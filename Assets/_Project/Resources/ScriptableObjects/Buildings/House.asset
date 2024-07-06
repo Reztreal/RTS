@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a45dcec16a53fb4085d926432de9422, type: 3}
   m_Name: House
   m_EditorClassIdentifier: 
-  buildingName: House
-  buildingPrefab: {fileID: 2134524521000029446, guid: ccdcd6001d4a67d4297d63ea7dd2d019,
+  unitName: House
+  unitPrefab: {fileID: 2134524521000029446, guid: ccdcd6001d4a67d4297d63ea7dd2d019,
     type: 3}
-  buildingCost:
+  maxHealth: 200
+  unitCost:
   - resourceType: {fileID: 11400000, guid: bad487a7d2947ce4bb5f018aa1f6aaa4, type: 2}
     amount: 100

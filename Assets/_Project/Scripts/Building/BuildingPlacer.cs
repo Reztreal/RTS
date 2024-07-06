@@ -27,7 +27,8 @@ public class BuildingPlacer : MonoBehaviour
                     _buildingToPlace.SetPosition(hit.point);
                 }
 
-                if (Input.GetMouseButtonDown(0) && _buildingToPlace.HasValidPlacement && !EventSystem.current.IsPointerOverGameObject() && _buildingData.CanAffordBuilding())
+                if (Input.GetMouseButtonDown(0) && _buildingToPlace.HasValidPlacement && 
+                    !EventSystem.current.IsPointerOverGameObject() && _buildingData.CanAffordUnit())
                 {
                     PlaceBuilding();
                 }

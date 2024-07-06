@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e125cfec1e5815544800f96f41878922, type: 3}
-  m_Name: GameResourceDatabase
+  m_Script: {fileID: 11500000, guid: 5a45dcec16a53fb4085d926432de9422, type: 3}
+  m_Name: TownCenter
   m_EditorClassIdentifier: 
-  resourceTypeList:
-  - resourceType: {fileID: 11400000, guid: ed05f4369679ffb429a0c8d4f79ac977, type: 2}
-    amount: 800
+  unitName: TownCenter
+  unitPrefab: {fileID: 3596839402204038431, guid: d35fc1fae636b5b4fbe5e1e65d53389d,
+    type: 3}
+  maxHealth: 500
+  unitCost:
   - resourceType: {fileID: 11400000, guid: bad487a7d2947ce4bb5f018aa1f6aaa4, type: 2}
-    amount: 400
-  - resourceType: {fileID: 11400000, guid: ab1762d9ff2b47442960034f6d44629f, type: 2}
-    amount: 800
+    amount: 500

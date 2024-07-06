@@ -11,27 +11,23 @@ public enum BuildingState
     PLACED
 }
 
-public class Building
+public class Building : Unit
 {
-    private BuildingData _buildingData;
-    private Transform _transform;
-
     private BuildingState _state;
+    private BuildingData _buildingData;
 
     private List<Material> _materials = new List<Material>();
     
-    public Building(BuildingData buildingData)
+    public Building(BuildingData buildingData) : base(buildingData)
     {
         _buildingData = buildingData;
-        GameObject g = GameObject.Instantiate(_buildingData.buildingPrefab) as GameObject;
-        _transform = g.transform;
         
-        foreach (Material m in g.GetComponentInChildren<Renderer>().materials)
+        foreach (Material m in _transform.GetComponentInChildren<Renderer>().materials)
         {
             _materials.Add(m);
         }
 
-        if (CanAffordBuilding())
+        if (CanAffordUnit())
         {
             SetMaterials(BuildingState.VALID);
         }
@@ -40,11 +36,6 @@ public class Building
             SetMaterials(BuildingState.INVALID);
         }
     }
-    
-    public void SetPosition(Vector3 position)
-    {
-        _transform.position = position;
-    }
 
     public void Place()
     {
@@ -52,7 +43,7 @@ public class Building
         _transform.GetComponent<BoxCollider>().isTrigger = false;
         SetMaterials();
         
-        foreach (ResourceValue resourceValue in _buildingData.buildingCost)
+        foreach (ResourceValue resourceValue in _buildingData.unitCost)
         {
             Globals.RESOURCE_DATA.GetResource(resourceValue.resourceType.resourceName).amount -= resourceValue.amount;
         }
@@ -94,9 +85,6 @@ public class Building
     
     public bool IsPlaced { get { return _state == BuildingState.PLACED; } }
     public bool HasValidPlacement { get { return _state == BuildingState.VALID; } }
-    public bool CanAffordBuilding() { return _buildingData.CanAffordBuilding(); }
     public BuildingState State { get { return _state; } }
     public void SetState(BuildingState state) { _state = state; }
-    public Transform Transform { get { return _transform; } }
-    
 }

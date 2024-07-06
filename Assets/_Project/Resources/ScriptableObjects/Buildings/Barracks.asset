@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a45dcec16a53fb4085d926432de9422, type: 3}
   m_Name: Barracks
   m_EditorClassIdentifier: 
-  buildingName: Barracks
-  buildingPrefab: {fileID: 2944838222301640406, guid: a8a309fb99cfa324e9fc0b71dddb6b91,
+  unitName: Barracks
+  unitPrefab: {fileID: 2944838222301640406, guid: a8a309fb99cfa324e9fc0b71dddb6b91,
     type: 3}
-  buildingCost:
+  maxHealth: 200
+  unitCost:
   - resourceType: {fileID: 11400000, guid: bad487a7d2947ce4bb5f018aa1f6aaa4, type: 2}
     amount: 150

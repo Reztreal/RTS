@@ -47,7 +47,7 @@ public class BuildingManager : UnitManager
             _building.SetMaterials(BuildingState.INVALID);
             _building.SetState(BuildingState.INVALID);
         }
-        else if (_building.CanAffordBuilding())
+        else if (_building.CanAffordUnit())
         {
             _building.SetMaterials(BuildingState.VALID);
             _building.SetState(BuildingState.VALID);

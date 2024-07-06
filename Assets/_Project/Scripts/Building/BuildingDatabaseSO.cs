@@ -11,4 +11,17 @@ public class BuildingDatabaseSO : ScriptableObject
     {
         return buildingDataList[index];
     }
+    
+    public BuildingData GetBuildingData(string buildingName)
+    {
+        foreach (BuildingData buildingData in buildingDataList)
+        {
+            if (buildingData.unitName == buildingName)
+            {
+                return buildingData;
+            }
+        }
+
+        return null;
+    }
 }
