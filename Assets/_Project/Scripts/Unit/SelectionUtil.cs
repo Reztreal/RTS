@@ -4,6 +4,20 @@ using UnityEngine;
 
 public static class SelectionUtil
 {
+    private static Ray _ray;
+    private static RaycastHit _hit;
+    
+    static Camera _mainCamera;
+    public static Camera MainCamera
+    {
+        get
+        {
+            if (_mainCamera == null)
+                _mainCamera = Camera.main;
+            return _mainCamera;
+        }
+    }
+    
     static Texture2D _whiteTexture;
     public static Texture2D WhiteTexture
     {
@@ -93,5 +107,19 @@ public static class SelectionUtil
         }
 
         return retVal;
+    }
+    
+    public static Vector3 MiddleOfScreenPointToWorld()
+    { return MiddleOfScreenPointToWorld(MainCamera); }
+    public static Vector3 MiddleOfScreenPointToWorld(Camera cam)
+    {
+        _ray = cam.ScreenPointToRay(0.5f * new Vector2(Screen.width, Screen.height));
+        if (Physics.Raycast(
+                _ray,
+                out _hit,
+                1000f,
+                Globals.TERRAIN_LAYER_MASK
+            )) return _hit.point;
+        return Vector3.zero;
     }
 }

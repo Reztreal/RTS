@@ -10,6 +10,9 @@ public class UnitData : ScriptableObject
     
     public List<ResourceValue> unitCost;
     public List<SkillData> skills = new List<SkillData>();
+
+    [Header("Sounds")] 
+    public AudioClip onSelectSound;
     
     
     public bool CanAffordUnit()

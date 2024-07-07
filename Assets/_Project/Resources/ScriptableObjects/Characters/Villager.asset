@@ -19,5 +19,7 @@ MonoBehaviour:
   unitCost:
   - resourceType: {fileID: 11400000, guid: ab1762d9ff2b47442960034f6d44629f, type: 2}
     amount: 100
+  skills: []
+  onSelectSound: {fileID: 8300000, guid: dbb8406925c89684ea9b667df6e3cfe9, type: 3}
   popSize: 1
   code: villager

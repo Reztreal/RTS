@@ -71,7 +71,6 @@ public class UnitSelection : MonoBehaviour
                 unit.GetComponent<UnitManager>().Deselect();
             }
         }
-        
     }
 
     public void DeselectAllUnits()

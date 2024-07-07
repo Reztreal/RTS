@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,9 @@ public class GameManager : MonoBehaviour
     {
         DataLoader.LoadBuildingData();
         ResetResources();
+        
+        Globals.NAV_MESH_SURFACE = GameObject.Find("Terrain").GetComponent<NavMeshSurface>();
+        Globals.UpdateNavMeshSurface();
         // SpawnTownCenters();
     }
     

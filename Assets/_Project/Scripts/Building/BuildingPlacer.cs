@@ -66,5 +66,8 @@ public class BuildingPlacer : MonoBehaviour
         _buildingToPlace = null;
 
         EventManager.TriggerEvent("UpdateResourceUI");
+        EventManager.TriggerEvent("PlaySoundByName", "onBuildingPlacedSound");
+        
+        Globals.UpdateNavMeshSurface();
     }
 }

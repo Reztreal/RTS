@@ -17,6 +17,8 @@ public class UnitManager : MonoBehaviour
     private Renderer _healthBarRenderer;
     private MaterialPropertyBlock _healthBarMaterialPropertyBlock;
     private int _healthBarPropertyID;
+    
+    public AudioSource contextualAudioSource;
 
     public virtual void Initialize(Unit unit)
     {
@@ -73,6 +75,9 @@ public class UnitManager : MonoBehaviour
         
         EventManager.TriggerEvent("SelectUnit", _unit);
         
+        if (Globals.SELECTED_UNITS.Count == 1)
+            contextualAudioSource.PlayOneShot(_unit.UnitData.onSelectSound);
+        
         selectionIndicator.SetActive(true);
         healthBar.SetActive(true);
     }
@@ -92,7 +97,7 @@ public class UnitManager : MonoBehaviour
     {
         Vector3 pos = transform.position;
 
-        pos.y = 6;
+        pos.y = 4;
         
         healthBar.transform.position = pos;
     }
