@@ -4,7 +4,10 @@ This is a vertical slice of a Real-Time Strategy (RTS) game developed in Unity. 
 
 
 ## Demo
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TFYM7R_-YhM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></iframe>
+[![RTS Project Demo](https://img.youtube.com/vi/TFYM7R_-YhM/0.jpg)](https://www.youtube.com/watch?v=TFYM7R_-YhM)
+</iframe></iframe>
+
+#### Scriptable objects are used extensively to make the game more designer-friendly and to allow for easy customization of game elements.
 
 
 ## Features
@@ -15,6 +18,8 @@ This is a vertical slice of a Real-Time Strategy (RTS) game developed in Unity. 
 - **Sound Management**: The game includes various ambient and character sounds. Each sound can be triggered under specific game events.
 - **Event System**: The game includes an event system that allows for easy communication between game objects. The event system is used to trigger sounds and other game events.
 - **Pathfinding**: A height-based flow field is implemented so the units can prefer smoother paths.
+- **Skill System**: A scriptable object-based skill system is implemented. Each skill can be assigned to a unit and triggered under specific conditions.
+
 
 
 
