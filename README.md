@@ -5,7 +5,6 @@ This is a vertical slice of a Real-Time Strategy (RTS) game developed in Unity. 
 
 ## Demo
 [![RTS Project Demo](https://img.youtube.com/vi/TFYM7R_-YhM/0.jpg)](https://www.youtube.com/watch?v=TFYM7R_-YhM)
-</iframe></iframe>
 
 #### Scriptable objects are used extensively to make the game more designer-friendly and to allow for easy customization of game elements.
 
