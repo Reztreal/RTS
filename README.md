@@ -4,7 +4,7 @@ This is a vertical slice of a Real-Time Strategy (RTS) game developed in Unity. 
 
 
 ## Demo
-<iframe width="560" height="315" src="https://youtu.be/TFYM7R_-YhM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TFYM7R_-YhM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></iframe>
 
 
 ## Features
