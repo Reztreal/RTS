@@ -21,6 +21,7 @@ You can read how I implemented the height based flow field in my article [here](
 - **Pathfinding**: A height-based flow field is implemented so the units can prefer smoother paths.
 - **Skill System**: A scriptable object-based skill system is implemented. Each skill can be assigned to a unit and triggered under specific conditions.
 
-
+## Next Steps
+- **AI**: Implement a behavior tree-based AI system for the units.
 
 
