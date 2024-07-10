@@ -2,6 +2,8 @@
 
 This is a vertical slice of a Real-Time Strategy (RTS) game developed in Unity. The project uses flow fields for pathfinding, providing efficient and dynamic movement for units across the game map.
 
+## Article
+You can read how I implemented the height based flow field in my article [here](https://medium.com/p/b467677f7fa5).
 
 ## Demo
 [![RTS Project Demo](https://img.youtube.com/vi/TFYM7R_-YhM/0.jpg)](https://www.youtube.com/watch?v=TFYM7R_-YhM)
